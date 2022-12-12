@@ -2,17 +2,18 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Footer = (props) => {
   const { t } = useTranslation();
   const [homeCategories, setHomeCategories] = useState([]);
   const [shomeCategories, setSHomeCategories] = useState([]);
+  const navigate = useNavigate()
   useEffect(() => {
-    axios.get("/categories").then((res) => {
+    axios.get("/category").then((res) => {
       let category = [];
-      for (let i of res.data) {
-        category.push(i.name);
+      for (let i of res.data.results) {
+        category.push(i);
       }
       setHomeCategories(category.slice(6, 13));
       setSHomeCategories(category.slice(0, 5));
@@ -27,7 +28,7 @@ export const Footer = (props) => {
               <h5 class="mb-3 footer-list-title">{t("footer_link")}</h5>
               <ul class="list-unstyled footer-list-menu">
                 <li>
-                  <Link to="/">{t("nav_home")}</Link>
+                  <Link to="/home">{t("nav_home")}</Link>
                 </li>
                 <li>
                   <Link to="orders">{t("nav_order")}</Link>
@@ -50,12 +51,16 @@ export const Footer = (props) => {
               <ul class="list-unstyled footer-list-menu">
                 {shomeCategories.map((item, index) => (
                   <li key={index}>
-                    <Link
-                      to={{ pathname: "category", state: item }}
-                      className="text-capitalize"
-                    >
-                      <i class="mdi mdi-chevron-right me-1"></i> {item}
-                    </Link>
+                   <Link
+                        to="/category"
+                        onClick={(e)=>{
+                          e.preventDefault()
+                          navigate('/category', {state: item})
+                        }}
+                        className="text-capitalize"
+                      >
+                        <i class="mdi mdi-chevron-right me-1"></i> {item.name}
+                      </Link>
                   </li>
                 ))}
               </ul>
@@ -66,12 +71,16 @@ export const Footer = (props) => {
             <ul class="list-unstyled footer-list-menu">
               {homeCategories.map((item, index) => (
                 <li key={index}>
-                  <Link
-                    to={{ pathname: "category", state: item }}
-                    className="text-capitalize"
-                  >
-                    <i class="mdi mdi-chevron-right me-1"></i> {item}
-                  </Link>
+                   <Link
+                        to="/category"
+                        onClick={(e)=>{
+                          e.preventDefault()
+                          navigate('/category', {state: item})
+                        }}
+                        className="text-capitalize"
+                      >
+                        <i class="mdi mdi-chevron-right me-1"></i> {item.name}
+                      </Link>
                 </li>
               ))}
             </ul>

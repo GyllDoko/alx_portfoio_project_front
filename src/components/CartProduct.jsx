@@ -1,30 +1,31 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from "react"
+import { connect } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 import {
   addItem,
   clearItemFromCart,
-  removeItem,
-} from "../redux/cart/cart.actions";
+  removeItem
+} from "../redux/cart/cart.actions"
 
 export const CartProduct = (props) => {
-  let item = props.product;
+  let item = props.product
   const onRemoveClickk = () => {
     if (window.confirm(`Do you want to remove "${item.name}" from cart ?`)) {
-      props.dispatch(clearItemFromCart(item));
+      props.dispatch(clearItemFromCart(item))
     }
-  };
+  }
   const onMinusClick = () => {
-    props.dispatch(removeItem(item));
-  };
+    props.dispatch(removeItem(item))
+  }
   const onAddClickk = () => {
-    props.dispatch(addItem(item));
-  };
+    props.dispatch(addItem(item))
+  }
+  const navigate = useNavigate()
   return (
     <tr>
       <td>
         <img
-          src={item.image_tmp}
+          src={item.image}
           alt="product-img"
           title="product-img"
           class="avatar-md"
@@ -33,11 +34,12 @@ export const CartProduct = (props) => {
       <td>
         <h5 class="font-size-14 text-truncate">
           <Link
-            to={{
-              pathname: "details",
-              state: item,
+            to="/details"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate("/details", { state: item })
             }}
-            class="text-dark"
+            className="text-capitalize"
           >
             {item.name}
           </Link>
@@ -48,7 +50,7 @@ export const CartProduct = (props) => {
         <div className="row" style={{ width: "120px" }}>
           <div className="col-3">
             <Link
-              to="cart"
+              to="/cart"
               class="action-icon text-danger"
               onClick={(e) => onMinusClick(e)}
             >
@@ -63,7 +65,7 @@ export const CartProduct = (props) => {
           </div>
           <div className="col-3">
             <Link
-              to="cart"
+              to="/cart"
               class="action-icon text-success"
               onClick={(e) => onAddClickk(e)}
             >
@@ -79,7 +81,7 @@ export const CartProduct = (props) => {
       <td> {item.quantity * item.price} F</td>
       <td>
         <Link
-          to="cart"
+          to="/cart"
           class="action-icon text-danger"
           onClick={(e) => onRemoveClickk(e)}
         >
@@ -87,9 +89,9 @@ export const CartProduct = (props) => {
         </Link>
       </td>
     </tr>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({})
 
-export default connect(mapStateToProps)(CartProduct);
+export default connect(mapStateToProps)(CartProduct)

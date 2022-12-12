@@ -1,36 +1,36 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import { setCurrentUser } from "../redux/user/user.actions";
+import axios from "axios"
+import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { connect } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import Footer from "../components/Footer"
+import Header from "../components/Header"
+import { setCurrentUser } from "../redux/user/user.actions"
 
 export const Login = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
   const onHandleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     const data = {
       email: email,
-      password: password,
-    };
+      password: password
+    }
 
     axios
-      .post("/api/sessions", data)
+      .post("/auth/login", data)
       .then((res) => {
-        if (res.status == 201) {
-          props.dispatch(setCurrentUser(res.data));
-          props.history.push("/");
+        if (res.status === 200) {
+          props.dispatch(setCurrentUser(res.data))
+          navigate("/")
         } else {
         }
       })
-      .catch((err) => toast.error("Email ou mot de passe incorrect ! "));
-  };
-  const { t } = useTranslation();
+      .catch((err) => toast.error("Email or password incorrect ! "))
+  }
+  const { t } = useTranslation()
   return (
     <>
       <Header scrolled={true} />
@@ -157,7 +157,7 @@ export const Login = (props) => {
                           <p>
                             {t("dont_have_account")}
                             <Link
-                              to="register"
+                              to="/register"
                               class="fw-medium text-primary mx-2"
                             >
                               {t("register")}
@@ -173,11 +173,11 @@ export const Login = (props) => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => state.user;
+const mapStateToProps = (state) => state.user
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Login)

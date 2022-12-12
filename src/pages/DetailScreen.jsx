@@ -8,9 +8,10 @@ import axios from "axios"
 import Comment from "../components/Comment"
 import { useTranslation } from "react-i18next"
 import { toast } from "react-toastify"
+import { useLocation } from "react-router-dom"
 
 export const DetailScreen = (props) => {
-  const { state } = props.location
+  const { state } = useLocation()
   const [comment, setComment] = useState("")
   const [commentTab, setCommentTab] = useState([])
 
@@ -111,7 +112,7 @@ export const DetailScreen = (props) => {
                               aria-selected="true"
                             >
                               <img
-                                src={state.image_tmp}
+                                src={state.image}
                                 alt=""
                                 class="img-fluid mx-auto d-block rounded"
                               />
@@ -126,7 +127,7 @@ export const DetailScreen = (props) => {
                               aria-selected="false"
                             >
                               <img
-                                src={state.image_tmp}
+                                src={state.image}
                                 alt=""
                                 class="img-fluid mx-auto d-block rounded"
                               />
@@ -141,7 +142,7 @@ export const DetailScreen = (props) => {
                               aria-selected="false"
                             >
                               <img
-                                src={state.image_tmp}
+                                src={state.image}
                                 alt=""
                                 class="img-fluid mx-auto d-block rounded"
                               />
@@ -156,7 +157,7 @@ export const DetailScreen = (props) => {
                               aria-selected="false"
                             >
                               <img
-                                src={state.image_tmp}
+                                src={state.image}
                                 alt=""
                                 class="img-fluid mx-auto d-block rounded"
                               />
@@ -173,7 +174,7 @@ export const DetailScreen = (props) => {
                             >
                               <div>
                                 <img
-                                  src={state.image_tmp}
+                                  src={state.image}
                                   alt=""
                                   class="img-fluid mx-auto d-block"
                                 />
@@ -187,7 +188,7 @@ export const DetailScreen = (props) => {
                             >
                               <div>
                                 <img
-                                  src={state.image_tmp}
+                                  src={state.image}
                                   alt=""
                                   class="img-fluid mx-auto d-block"
                                 />
@@ -201,7 +202,7 @@ export const DetailScreen = (props) => {
                             >
                               <div>
                                 <img
-                                  src={state.image_tmp}
+                                  src={state.image}
                                   alt=""
                                   class="img-fluid mx-auto d-block"
                                 />
@@ -215,7 +216,7 @@ export const DetailScreen = (props) => {
                             >
                               <div>
                                 <img
-                                  src={state.image_tmp}
+                                  src={state.image}
                                   alt=""
                                   class="img-fluid mx-auto d-block"
                                 />
@@ -254,7 +255,7 @@ export const DetailScreen = (props) => {
 
                   <div class="col-xl-6">
                     <div class="mt-4 mt-xl-3">
-                      <a href="#" class="text-primary">
+                      <a href class="text-primary">
                         {t("category")}: {state.category}
                       </a>
                       <h4 class="mt-1 mb-3">{state.name}</h4>

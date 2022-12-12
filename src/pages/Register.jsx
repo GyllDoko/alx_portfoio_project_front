@@ -1,45 +1,49 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
-import { setCurrentUser } from "../redux/user/user.actions";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import React, { useState } from "react"
+import { connect } from "react-redux"
+import axios from "axios"
+import { setCurrentUser } from "../redux/user/user.actions"
+import { Link, useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import { toast } from "react-toastify";
+import Footer from "../components/Footer"
+import Header from "../components/Header"
+import { toast } from "react-toastify"
 
 export const Register = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordConfirmation, setPasswordConfirmation] = useState("")
+  const navigate = useNavigate()
   const onHandleSubmit = (e) => {
-    e.preventDefault();
-    const data = {
-      user: {
+    e.preventDefault()
+    if (password === passwordConfirmation) {
+      const data = {
         email: email,
-        password: password,
-        password_confirmation: passwordConfirmation,
-      },
-    };
+        password: password
+      }
 
-    axios
-      .post("/api/users", data)
-      .then((res) => {
-        if (res.status === 201) {
-          props.dispatch(setCurrentUser(res.data));
-          props.history.push("/");
-        } else {
-          for (let [key, value] of Object.entries(res.data)) {
-            for (let error of value) {
-              toast.warning(`${key} : ${error}`);
+      axios
+        .post("/auth/signup", data)
+        .then((res) => {
+          console.log(res)
+          if (res.status === 201) {
+            console.log("here")
+            props.dispatch(setCurrentUser(res.data))
+            navigate("/")
+          } else {
+            for (let [key, value] of Object.entries(res.data)) {
+              for (let error of value) {
+                toast.warning(`${key} : ${error}`)
+              }
             }
           }
-        }
-      })
-      .catch((err) => toast.error(err));
-  };
-  const { t } = useTranslation();
+        })
+        .catch((err) => toast.error(err))
+    } else {
+      toast.error("Your password did not match !")
+    }
+  }
+  const { t } = useTranslation()
   return (
     <div>
       <Header scrolled={true} />
@@ -177,7 +181,7 @@ export const Register = (props) => {
                       <div class="mt-2 text-center">
                         <p>
                           {t("already_have_account")}
-                          <Link to="login" class="fw-medium text-primary mx-2">
+                          <Link to="/login" class="fw-medium text-primary mx-2">
                             {t("login")}
                           </Link>
                         </p>
@@ -190,11 +194,11 @@ export const Register = (props) => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({})
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(Register)

@@ -27,7 +27,7 @@ export default function App() {
     if (currentState.user.currentUser == null) {
       <Navigate to='/login' />
     }
-  }, [])
+  }, [currentState.user])
   return (
     <Provider store={Store}>
       <PersistGate persistor={Persistor}>
@@ -35,7 +35,7 @@ export default function App() {
           <ToastContainer />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="products" element={<ProductListScreen />} />
+            <Route path="home" element={<ProductListScreen />} />
 
             <Route path="profile" element={<ProfileSreen />} />
             <Route path="edit_profile" element={<EditProfileScreen />} />

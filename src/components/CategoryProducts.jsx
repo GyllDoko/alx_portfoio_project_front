@@ -2,23 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CategoryProducts = (props) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get(`/get_products/${props.category}`).then((res) => {
+    axios.get(`/category/${props.category.id}/products`).then((res) => {
       setProducts(res.data);
     });
-  }, [props.category]);
+  }, [props.category.id]);
+  const navigate = useNavigate()
   const { t } = useTranslation();
   return (
     <div className="" style={props.details ? { marginTop: "100px" } : {}}>
       <div class="row mb-3">
-        <div class="col-xl-4 col-sm-6">
+        <div class=" col-sm-8">
           <div class="my-2">
             <h2>
-              {t("category")} {props.category}
+              {props.category.name}
             </h2>
           </div>
         </div>
@@ -35,22 +36,24 @@ export const CategoryProducts = (props) => {
                     </span>
                   </div> */}
                   <img
-                    src={item.image_tmp}
+                    src={item.image}
                     alt=""
                     class="img-fluid mx-auto d-block"
                   />
                 </div>
                 <div class="mt-4 text-center">
                   <h5 class="mb-3 text-truncate">
-                    <Link
-                      to={{
-                        pathname: "details",
-                        state: { ...item, category: props.category },
-                      }}
-                      class="text-dark"
-                    >
-                      {item.name}
-                    </Link>
+                  <Link
+                        to="/details"
+                        onClick={(e)=>{
+                          e.preventDefault()
+                          navigate('/details', {state: item})
+                        }}
+                        className="text-capitalize"
+                      >
+                         {item.name}
+                      </Link>
+                   
                   </h5>
 
                   <p class="text-muted">{item.desccription}</p>

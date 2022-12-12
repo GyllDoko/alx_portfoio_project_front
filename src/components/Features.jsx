@@ -29,21 +29,16 @@ export default function Features() {
                 <div class="features-number font-weight-semibold display-4 me-3">
                   01
                 </div>
-                <h4 class="mb-0">Lending</h4>
+                <h4 class="mb-0">Online Market</h4>
               </div>
               <p class="text-muted">
-                If several languages coalesce, the grammar of the resulting
-                language is more simple and regular than of the individual will
-                be more simple and regular than the existing.
+                At its core, Marketplace is an ecommerce site that offers many
+                different products from many different sellers.
               </p>
               <div class="text-muted mt-4">
                 <p class="mb-2">
-                  <i class="mdi mdi-circle-medium text-success me-1"></i>Donec
-                  pede justo vel aliquet
-                </p>
-                <p>
-                  <i class="mdi mdi-circle-medium text-success me-1"></i>Aenean
-                  et nisl sagittis
+                  You can buy products from the platform and be delivered at
+                  your house
                 </p>
               </div>
             </div>
@@ -57,23 +52,13 @@ export default function Features() {
                 <div class="features-number font-weight-semibold display-4 me-3">
                   02
                 </div>
-                <h4 class="mb-0">Wallet</h4>
+                <h4 class="mb-0">History Saving</h4>
               </div>
               <p class="text-muted">
-                It will be as simple as Occidental; in fact, it will be
-                Occidental. To an English person, it will seem like simplified
-                English, as a skeptical Cambridge friend.
+                Don't waste your time remember what you buy. We do it for you.
+                We save all your orders as same as your pending cart. All
+                secured and related only to your profile
               </p>
-              <div class="text-muted mt-4">
-                <p class="mb-2">
-                  <i class="mdi mdi-circle-medium text-success me-1"></i>Donec
-                  pede justo vel aliquet
-                </p>
-                <p>
-                  <i class="mdi mdi-circle-medium text-success me-1"></i>Aenean
-                  et nisl sagittis
-                </p>
-              </div>
             </div>
           </div>
           <div class="col-md-6  col-sm-8 ms-md-auto">

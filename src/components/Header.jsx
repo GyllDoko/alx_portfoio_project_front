@@ -86,7 +86,7 @@ export const Header = (props) => {
         <div class="collapse navbar-collapse" id="topnav-menu-content">
           <ul class="navbar-nav ms-auto" id="topnav-menu">
             <li class="nav-item mx-1">
-              <NavLink class="nav-link " to="/">
+              <NavLink class="nav-link " to="/home">
                 {t("nav_home")}
               </NavLink>
             </li>
@@ -126,7 +126,7 @@ export const Header = (props) => {
           {props.user.currentUser ? (
             <div class="my-2 ms-lg-2">
               <Link
-                to="login"
+                to="/login"
                 onClick={(e) => logOut()}
                 class="btn btn-outline-danger w-xs shadow-none"
               >

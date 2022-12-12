@@ -1,33 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Hero } from "../components/Hero";
-import { Shop } from "../components/Shop";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CategoryProducts } from "../components/CategoryProducts";
 import { useTranslation } from "react-i18next";
 
 export const ProductListScreen = (props) => {
   const { t } = useTranslation();
+  const navigate = useNavigate()
   const [allCategories, setAllCategories] = useState([]);
   const [homeCategories, setHomeCategories] = useState([]);
   useEffect(() => {
-    axios.get("/categories").then((res) => {
-      let category = [];
-      for (let i of res.data) {
-        category.push(i.name);
-      }
-      setAllCategories([...new Set(category)]);
-      setHomeCategories(category.slice(0, 3));
+    axios.get("/category").then((res) => {
+     const categories = res.data.results
+      setAllCategories([...categories])
+      setHomeCategories(categories.slice(0, 3));
     });
   }, []);
   return (
     <>
       <Header />
-      <Hero />
-      <div id="preview" class="row mt-5 mx-5">
+      <div id="preview" class="row my-5 mx-5" style={{paddingTop: "80px"}}>
         <div class="col-lg-3">
           <div class="card">
             <div class="card-body">
@@ -41,17 +36,21 @@ export const ProductListScreen = (props) => {
                   {allCategories.map((item, index) => (
                     <li key={index}>
                       <Link
-                        to={{ pathname: "category", state: item }}
+                        to="/category"
+                        onClick={(e)=>{
+                          e.preventDefault()
+                          navigate('/category', {state: item})
+                        }}
                         className="text-capitalize"
                       >
-                        <i class="mdi mdi-chevron-right me-1"></i> {item}
+                        <i class="mdi mdi-chevron-right me-1"></i> {item.name}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div class="mt-4 pt-3">
+              {/* <div class="mt-4 pt-3">
                 <h5 class="font-size-14 mb-3">
                   {t("home_filter_by_customer_rating")}
                 </h5>
@@ -101,7 +100,7 @@ export const ProductListScreen = (props) => {
                     </label>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

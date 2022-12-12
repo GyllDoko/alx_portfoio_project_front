@@ -21,8 +21,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
 
 //axios config
-axios.defaults.baseURL = "https://dive-original-app-backend.herokuapp.com"//  "http://127.0.0.1:3001" //api 
-axios.defaults.headers.common["Authorization"] = "Bearer gtvthkceyzqvuzevhzeezulvyjezjeceucecececeze"
+axios.defaults.baseURL = "http://127.0.0.1:8000" //"https://dive-original-app-backend.herokuapp.com"//  api 
+// axios.defaults.headers.common["Authorization"] = "Bearer gtvthkceyzqvuzevhzeezulvyjezjeceucecececeze"
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 
 i18n
